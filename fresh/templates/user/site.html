@@ -1,0 +1,138 @@
+{% extends 'user/base_user.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+{%block head  %}
+    <link rel="stylesheet"type="text/css" href="/static/css/bootstrap.css">
+    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增收获人</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/account/user_center_site/" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="KvQD1KS1pOw8uUFEpucfRRDakpxvAzwog5LbgLPfba2W9BQDDTrqs0zw3PHyrKhS">
+                    <div class="form-group">
+                        <label for="">收货人</label>
+                        <input type="text" name="username" class="form-control" placeholder="请填写收货人">
+                    </div>
+                    <div class="form-group">
+                        <label for="">城市</label>
+                        <input type="text" name="city" class="form-control" placeholder="填写所在城市">
+                    </div>
+                    <div class="form-group">
+                        <label for="">联系电话</label>
+                        <input type="text" name="telephone" class="form-control" placeholder="填写有效的联系电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="">详细地址</label>
+                        <textarea name="address" class="form-control" cols="7" rows="3" placeholder="请填写详细的地址"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default clear" data-dismiss="modal">取&nbsp;&nbsp;消</button>
+                        <button type="submit" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                    </div>
+                    <input type="reset" style="display: none">
+
+                </form>
+                <script>
+                    $('#clear').click(function(){
+                        $('input[type="reset"]').trigger('click');
+                    })
+
+                </script>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="myModal_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改收获人信息</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/account/edite_adress/" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="KvQD1KS1pOw8uUFEpucfRRDakpxvAzwog5LbgLPfba2W9BQDDTrqs0zw3PHyrKhS">
+                    <div class="form-group">
+                        <label for="">收货人</label>
+                        <input type="text" name="username" class="form-control" placeholder="请填写收货人" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="">城市</label>
+                        <input type="text" name="city" class="form-control" placeholder="填写所在城市">
+                    </div>
+                    <div class="form-group">
+                        <label for="">联系电话</label>
+                        <input type="text" name="telephone" class="form-control" placeholder="填写有效的练习电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="">详细地址</label>
+                        <textarea id="detail_adress" name="address" class="form-control" cols="7" rows="3" placeholder="请填写详细的地址"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default clear" data-dismiss="modal">取&nbsp;&nbsp;消</button>
+                        <button type="submit" class="btn btn-primary">确&nbsp;&nbsp;定</button>
+                    </div>
+                        <input type="hidden" value="" name="rid">
+                        <input type="hidden" value="/account/user_center_site/" name="url">
+                        <input type="reset" style="display: none">
+                </form>
+                 <script>
+                    $('.clear').click(function(){
+                        $('input[type="reset"]').trigger('click');
+                    })
+
+                </script>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block right_content %}
+    <div class="right_content clearfix">
+        <div>
+
+        </div>
+        <h3 class="common_title2">默认收货地址</h3>
+        <div class="site_con">
+            <dl>
+                <dt>当前地址:</dt>
+
+                <dd id="moren">{{ user_info.address }}&nbsp;&nbsp;
+                    &nbsp;&nbsp;{{ user_info.person_name }}&nbsp;&nbsp;
+                    （{{ user_info.person_name }} 收）&nbsp;&nbsp; {{ user_info.tel }}</dd>
+
+            </dl>
+
+                <div class="panel panel-default block_44">
+                    <div class="panel-heading">
+                        <p><span style="font-size: 18px" id="name1">{{ user_info.person_name }}</span>&nbsp;&nbsp;
+                            <span style="margin-left: 30px" id="telephone1">{{ user_info.tel }}</span></p>
+                        <div id="address1">
+                            河南通信产业园6楼西北3
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <input type="radio" name="address_check" id="44" class="pull-left" data_id="44">
+                        <label for="44">&nbsp;&nbsp;设置为默认地址</label>
+                        <span class="pull-right"><a href="#" class="btn btn-danger del" data_id="44">删除</a></span>
+                        <span class="pull-right"><a type="button" data_id="44" class="btn btn-primary pull-right edite" data-toggle="modal" data-target="#myModal_1" style="margin-right: 10px">编辑</a></span>
+                    </div>
+                </div>
+
+        </div>
+        <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">
+    增加收货人信息
+</button>
+
+    </div>
+        {% endblock %}
